@@ -1,6 +1,5 @@
 package ru.yandex.practicum.gym;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Timetable {
@@ -53,7 +52,7 @@ public class Timetable {
 
     public Map<String, Integer> getCountByCoaches() {
 
-        Map<String, Integer> countByCoaches  = getCouchesSessions();
+        Map<String, Integer> countByCoaches = getCouchesSessions();
         List<String> names = new ArrayList<>(countByCoaches.keySet());
         Map<String, Integer> topCoaches = new LinkedHashMap<>();
         names.sort((a, b) -> countByCoaches.get(b) - countByCoaches.get(a));
@@ -65,8 +64,10 @@ public class Timetable {
 
         return topCoaches;
     }
-    public Map<String, Integer> getCouchesSessions(){
-        Map<String, Integer> countByCoaches  = new HashMap<>();
+
+    public Map<String, Integer> getCouchesSessions() {
+
+        Map<String, Integer> countByCoaches = new HashMap<>();
         for (TreeMap<TimeOfDay, List<TrainingSession>> timetablesForDay : timetable.values()) {
 
             for (List<TrainingSession> listForTime : timetablesForDay.values()) {

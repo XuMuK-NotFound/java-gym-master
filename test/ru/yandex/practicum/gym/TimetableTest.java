@@ -75,8 +75,9 @@ public class TimetableTest {
                         DayOfWeek.TUESDAY, new TimeOfDay(14, 0)),
                 "Список занятий во вторник должен быть пустым");
     }
+
     @Test
-    public  void testShouldCountSessionsCorrectForSpecificDay(){
+    public void testShouldCountSessionsCorrectForSpecificDay() {
         Timetable timetable = new Timetable();
 
         Group group = new Group("Акробатика для детей", Age.CHILD, 60);
@@ -91,8 +92,9 @@ public class TimetableTest {
                 "Должно быть 2 занятия в пятницу при проверке на порядок");
 
     }
+
     @Test
-    public  void testShouldSortCoachesBySessionCountWithVasilievAsLeader(){
+    public void testShouldSortCoachesBySessionCountWithVasilievAsLeader() {
         Timetable timetable = new Timetable();
 
         Group group = new Group("Акробатика для детей", Age.CHILD, 60);
@@ -112,8 +114,9 @@ public class TimetableTest {
         assertEquals(coachT1.toString(), firstInTop, "Васильев должен быть на первом месте, так как у него больше смен");
 
     }
+
     @Test
-    public  void testShouldReturnCorrectUniqueCoachesCountForMultipleSessions(){
+    public void testShouldReturnCorrectUniqueCoachesCountForMultipleSessions() {
         Timetable timetable = new Timetable();
 
         Group group = new Group("Акробатика для детей", Age.CHILD, 60);
@@ -135,8 +138,9 @@ public class TimetableTest {
         assertEquals(3, result.size(), "Должно быть ровно 3 уникальных тренера в мапе");
 
     }
+
     @Test
-    public  void testShouldCalculateExactSessionCountForEachCoachSeparately(){
+    public void testShouldCalculateExactSessionCountForEachCoachSeparately() {
         Timetable timetable = new Timetable();
 
         Group group = new Group("Акробатика для детей", Age.CHILD, 60);
