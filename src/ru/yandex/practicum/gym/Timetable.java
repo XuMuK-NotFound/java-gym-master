@@ -20,34 +20,22 @@ public class Timetable {
         timetablesForDay.get(timeOfDay).add(trainingSession);
     }
 
-    public int getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
-        int count = 0;
-        TreeMap<TimeOfDay, List<TrainingSession>> timetablesForDay = timetable.get(dayOfWeek);
-        if (timetablesForDay == null) {
-            System.out.println("Сегодня занятий нет.");
-            return 0;
-
-        }
-        for (TimeOfDay timeOfDay : timetablesForDay.navigableKeySet()) {
-            List<TrainingSession> sessions = timetablesForDay.get(timeOfDay);
-            System.out.println("Время: " + timeOfDay + ", Тренировок в этот час: " + sessions.size());
-            count += sessions.size();
-        }
-        return count;
+    public TreeMap<TimeOfDay, List<TrainingSession>> getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
+        return timetable.getOrDefault(dayOfWeek, new TreeMap<>());
     }
 
-    public int getTrainingSessionsForDayAndTime(DayOfWeek dayOfWeek, TimeOfDay timeOfDay) {
+    public List<TrainingSession> getTrainingSessionsForDayAndTime(DayOfWeek dayOfWeek, TimeOfDay timeOfDay) {
         TreeMap<TimeOfDay, List<TrainingSession>> trainingSessionsForDay = timetable.get(dayOfWeek);
         if (trainingSessionsForDay == null) {
-            return 0;
+            return Collections.emptyList();
         }
 
         List<TrainingSession> listOfSessions = trainingSessionsForDay.get(timeOfDay);
         if (listOfSessions == null) {
-            return 0;
+            return Collections.emptyList();
         }
 
-        return listOfSessions.size();
+        return listOfSessions;
     }
 
     public Map<String, Integer> getCountByCoaches() {

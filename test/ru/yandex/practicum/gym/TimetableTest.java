@@ -1,6 +1,7 @@
 package ru.yandex.practicum.gym;
 
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,6 +10,7 @@ import java.util.*;
 public class TimetableTest {
 
     @Test
+    @DisplayName("Проверка получения одной тренировки в понедельник и 0 во Вторник")
     public void testGetTrainingSessionsForDaySingleSession() {
         Timetable timetable = new Timetable();
 
@@ -18,16 +20,18 @@ public class TimetableTest {
                 DayOfWeek.MONDAY, new TimeOfDay(13, 0));
 
         timetable.addNewTrainingSession(singleTrainingSession);
-
-        assertEquals(1, timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY),
+        var resultByMonday = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
+        var resultByTuesday = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
+        assertEquals(1, resultByMonday.size(),
                 "Список занятий в понедельник должен возвращать 1");
 
-        assertEquals(0, timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY),
+        assertEquals(0, resultByTuesday.size(),
                 "Список занятий во вторник должен быть пустым");
 
     }
 
     @Test
+    @DisplayName("тест на получение тренировочных сессий для дня с несколькими сессиями")
     public void testGetTrainingSessionsForDayMultipleSessions() {
         Timetable timetable = new Timetable();
 
@@ -51,12 +55,17 @@ public class TimetableTest {
         timetable.addNewTrainingSession(thursdayChildTrainingSession);
         timetable.addNewTrainingSession(saturdayChildTrainingSession);
 
-        // Проверить, что за понедельник вернулось одно занятие
-        // Проверить, что за четверг вернулось два занятия в правильном порядке: сначала в 13:00, потом в 20:00
-        // Проверить, что за вторник не вернулось занятий
+        assertEquals(1, timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY).size(),
+                "В понедельник должна быть только одна запись по времени");
+
+        assertEquals(2, timetable.getTrainingSessionsForDay(DayOfWeek.THURSDAY).size(),
+                "В четверг должно быть две записи на разное время");
+
+
     }
 
     @Test
+    @DisplayName("получение сессий по дню и времени")
     public void testGetTrainingSessionsForDayAndTime() {
         Timetable timetable = new Timetable();
 
@@ -77,6 +86,7 @@ public class TimetableTest {
     }
 
     @Test
+    @DisplayName("корректный подсчет сессий в конкретный день")
     public void testShouldCountSessionsCorrectForSpecificDay() {
         Timetable timetable = new Timetable();
 
@@ -94,6 +104,7 @@ public class TimetableTest {
     }
 
     @Test
+    @DisplayName("сортировка тренеров по количеству сессий с Васильевым в лидерах")
     public void testShouldSortCoachesBySessionCountWithVasilievAsLeader() {
         Timetable timetable = new Timetable();
 
@@ -116,6 +127,7 @@ public class TimetableTest {
     }
 
     @Test
+    @DisplayName("корректное количество уникальных тренеров в нескольких сессиях")
     public void testShouldReturnCorrectUniqueCoachesCountForMultipleSessions() {
         Timetable timetable = new Timetable();
 
@@ -140,6 +152,7 @@ public class TimetableTest {
     }
 
     @Test
+    @DisplayName("точный расчет количества сессий отдельно по каждому тренеру")
     public void testShouldCalculateExactSessionCountForEachCoachSeparately() {
         Timetable timetable = new Timetable();
 
@@ -158,6 +171,7 @@ public class TimetableTest {
 
         assertEquals(2, result.get(coachT2.toString()), "У Крылов должно быть насчитано 2 смены");
         assertEquals(1, result.get(coachT1.toString()), "У Васильева должна быть 1 смена");
-
+        assertEquals(0, timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY).size(),
+                "Во вторник список тренировок должен быть пустым");
     }
 }
