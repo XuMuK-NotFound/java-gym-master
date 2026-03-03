@@ -20,12 +20,10 @@ public class TimetableTest {
                 DayOfWeek.MONDAY, new TimeOfDay(13, 0));
 
         timetable.addNewTrainingSession(singleTrainingSession);
-        var resultByMonday = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
-        var resultByTuesday = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
-        assertEquals(1, resultByMonday.size(),
+        assertEquals(1, timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY).size(),
                 "Список занятий в понедельник должен возвращать 1");
 
-        assertEquals(0, resultByTuesday.size(),
+        assertEquals(0, timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY).size(),
                 "Список занятий во вторник должен быть пустым");
 
     }
@@ -61,6 +59,8 @@ public class TimetableTest {
         assertEquals(2, timetable.getTrainingSessionsForDay(DayOfWeek.THURSDAY).size(),
                 "В четверг должно быть две записи на разное время");
 
+        assertEquals(0, timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY).size(),
+                "В четверг должно быть две записи на разное время");
 
     }
 
@@ -77,11 +77,11 @@ public class TimetableTest {
         timetable.addNewTrainingSession(singleTrainingSession);
 
         assertEquals(1, timetable.getTrainingSessionsForDayAndTime(
-                        DayOfWeek.MONDAY, new TimeOfDay(13, 0)),
+                        DayOfWeek.MONDAY, new TimeOfDay(13, 0)).size(),
                 "Список занятий в понедельник должен возвращать 1");
 
         assertEquals(0, timetable.getTrainingSessionsForDayAndTime(
-                        DayOfWeek.TUESDAY, new TimeOfDay(14, 0)),
+                        DayOfWeek.TUESDAY, new TimeOfDay(14, 0)).size(),
                 "Список занятий во вторник должен быть пустым");
     }
 
@@ -98,7 +98,7 @@ public class TimetableTest {
         timetable.addNewTrainingSession(new TrainingSession(group, coach,
                 DayOfWeek.FRIDAY, new TimeOfDay(8, 0)));
 
-        assertEquals(2, timetable.getTrainingSessionsForDay(DayOfWeek.FRIDAY),
+        assertEquals(2, timetable.getTrainingSessionsForDay(DayOfWeek.FRIDAY).size(),
                 "Должно быть 2 занятия в пятницу при проверке на порядок");
 
     }
